@@ -12,6 +12,10 @@ trigger:
 pool: 
   name: Windows Agent
 
+variables: 
+  - template: variables.yml
+
+
 stages:
 - stage: ProductOrgDev
   displayName: Acquiring product of Dev Organization
