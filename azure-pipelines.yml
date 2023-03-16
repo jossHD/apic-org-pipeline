@@ -1,6 +1,6 @@
 resources:
   repositories:
-    - repository: templates
+    - repository: apic-publish-pipeline
       endpoint: github-jossHD
       type: github
       name: jossHD/apic-publish-pipeline
