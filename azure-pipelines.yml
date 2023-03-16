@@ -1,0 +1,29 @@
+resources:
+  repositories:
+    - repository: templates
+      endpoint: github-jossHD
+      type: github
+      name: jossHD/apic-publish-pipeline
+      trigger: none
+
+trigger:
+- main
+
+pool: 
+  name: Windows Agent
+
+stages:
+- stage: ProductOrgDev
+  displayName: Acquiring product of Dev Organization
+  jobs: 
+  - deployment: DownloadProduct
+    workspace:
+      clean: all
+    displayName: Downloading product of Dev
+    environment: $(environmentValue)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: downloading-product.yml@apic-publish-pipeline
+
