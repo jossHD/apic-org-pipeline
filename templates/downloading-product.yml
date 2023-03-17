@@ -21,14 +21,14 @@ steps:
   displayName: 'Download Product'
   inputs:
     script: |
-      cd apic-publish-pipeline/templates/assets
+      cd $(system.defaultworkingdirectory)/apic-publish-pipeline/templates/assets
       apic draft-products:get $(name-product):$(version-product) -s $(server-apic) -o $(name-apic-dev)
 
 - task: CmdLine@2
   displayName: 'Download APIs'
   inputs:
     script: |
-      cd apic-publish-pipeline/templates/assets
+      cd $(system.defaultworkingdirectory)/apic-publish-pipeline/templates/assets
       apic draft-apis:get $(name-api-001):$(version-api-001) -o $(name-apic-dev) -s ${server}
       apic draft-apis:get $(name-api-002):$(version-api-002) -o $(name-apic-dev) -s ${server}
 
@@ -43,9 +43,10 @@ steps:
   displayName: 'Pushing the changes in GitHub'
   inputs:
     script: |
+      cd $(system.defaultworkingdirectory)/apic-publish-pipeline
       git remote add origin https://github.com/jossHD/apic-publish-pipeline.git
       git branch -M main
-      git add .
+      git add templates/assets/$(name-product):$(version-product).yml templates/assets/$(name-api-001):$(version-api-001).yml templates/assets/$(name-api-002):$(version-api-002).yml
       git commit -m "Adding APIs"
       git push origin HEAD:main
 
