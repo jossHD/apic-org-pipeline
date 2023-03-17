@@ -21,16 +21,18 @@ steps:
   displayName: 'Download Product'
   inputs:
     script: |
-      cd $(system.defaultworkingdirectory)/apic-publish-pipeline/templates/assets
+      cd $(system.defaultworkingdirectory)/apic-publish-pipeline/templates
+      mkdir assets
+      cd assets
       apic draft-products:get $(name-product):$(version-product) -s $(server-apic) -o $(name-apic-dev)
 
 - task: CmdLine@2
   displayName: 'Download APIs'
   inputs:
-    script: |
+    script: |     
       cd $(system.defaultworkingdirectory)/apic-publish-pipeline/templates/assets
-      apic draft-apis:get $(name-api-001):$(version-api-001) -o $(name-apic-dev) -s ${server}
-      apic draft-apis:get $(name-api-002):$(version-api-002) -o $(name-apic-dev) -s ${server}
+      apic draft-apis:get $(name-api-001):$(version-api-001) -o $(name-apic-dev) -s ${server-apic}
+      apic draft-apis:get $(name-api-002):$(version-api-002) -o $(name-apic-dev) -s ${server-apic}
 
 - task: CmdLine@2
   displayName: 'Setting git config'
