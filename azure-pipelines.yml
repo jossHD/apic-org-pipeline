@@ -29,5 +29,5 @@ stages:
       runOnce:
         deploy:
           steps:
-          - template: template/downloading-product.yml
+          - template: templates/downloading-product.yml
 
