@@ -51,7 +51,7 @@ steps:
       echo cd $(system.defaultworkingdirectory)/apic-publish-pipeline
       git remote set-url origin https://github.com/jossHD/apic-publish-pipeline.git
       git branch -M main
-      git add templates\assets\$(name-product)_$(version-product).yml templates\assets\$(name-api-001)_$(version-api-001).yml templates\assets\$(name-api-002)_$(version-api-002).yml
+      git add templates\assets\$(name-product)_$(version-product).yaml templates\assets\$(name-api-001)_$(version-api-001).yaml templates\assets\$(name-api-002)_$(version-api-002).yaml
       git commit -m "Adding APIs"
       git push origin HEAD:main
 
