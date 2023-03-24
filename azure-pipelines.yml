@@ -1,11 +1,3 @@
-resources:
-  repositories:
-    - repository: apic-publish-pipeline
-      endpoint: github-jossHD
-      type: github
-      name: jossHD/apic-publish-pipeline
-      trigger: none
-
 trigger:
 - main
 
