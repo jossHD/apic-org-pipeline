@@ -21,20 +21,20 @@ steps:
   displayName: 'Download Product'
   inputs:
     script: |
-      cd $(system.defaultworkingdirectory)/apic-publish-pipeline/templates
       mkdir assets
       cd assets
       apic draft-products:get $(name-product):$(version-product) -s $(server-apic) -o $(name-apic-dev)
+    workingDirectory: '$(system.defaultworkingdirectory)/apic-publish-pipeline/templates'
 
 - task: CmdLine@2
   displayName: 'Download APIs'
   inputs:
     script: |     
-      cd $(system.defaultworkingdirectory)/apic-publish-pipeline/templates/assets
       echo 'apic draft-apis:get $(name-api-001):$(version-api-001) -o $(name-apic-dev) -s $(server-apic)'
       apic draft-apis:get $(name-api-001):$(version-api-001) -o $(name-apic-dev) -s $(server-apic)
       echo 'apic draft-apis:get $(name-api-002):$(version-api-002) -o $(name-apic-dev) -s $(server-apic)'
       apic draft-apis:get $(name-api-002):$(version-api-002) -o $(name-apic-dev) -s $(server-apic)
+    workingDirectory: '$(system.defaultworkingdirectory)/apic-publish-pipeline/templates/assets'
 
 - task: CmdLine@2
   displayName: 'Setting git config'
@@ -47,14 +47,12 @@ steps:
   displayName: 'Pushing the changes in GitHub'
   inputs:
     script: |
-      cd $(system.defaultworkingdirectory)\apic-publish-pipeline
-      echo cd $(system.defaultworkingdirectory)/apic-publish-pipeline
       git remote set-url origin https://github.com/jossHD/apic-publish-pipeline.git
       git branch -M main
       git add templates\assets\$(name-product)_$(version-product).yaml templates\assets\$(name-api-001)_$(version-api-001).yaml templates\assets\$(name-api-002)_$(version-api-002).yaml
       git commit -m "Adding APIs"
       git push origin HEAD:main
-
+    workingDirectory: '$(system.defaultworkingdirectory)\apic-publish-pipeline'
 
 - task: CmdLine@2
   displayName: 'Logout Org Dev'
