@@ -40,8 +40,8 @@ steps:
   displayName: 'Setting git config'
   inputs:
     script: |
-      git config --global user.email "hinostrozajosselyn@gmail.com"
-      git config --global user.name "jossHD"
+      git config --global user.email "$(email-github)"
+      git config --global user.name "$(user-name)"
 
 - task: CmdLine@2
   displayName: 'Pushing the changes in GitHub'
